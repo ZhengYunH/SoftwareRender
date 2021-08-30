@@ -4,16 +4,14 @@
 #include <initializer_list>
 #include <iostream>
 
-template<int dimension, typename _DataType>
-class TVec;
+#include "TVec.h"
 
-namespace zyh
+namespace ZYH
 {
 	template <typename _DataType, size_t _nRow, size_t _nCol>
 	class TMatrix
 	{
-	public:
-
+	public: // ctor & dtor
 		TMatrix() { initData(); }
 		TMatrix(std::initializer_list<_DataType> data)
 		{
@@ -25,6 +23,7 @@ namespace zyh
 				input(d);
 		}
 
+	public: // iostream
 		friend std::ostream& operator<<(std::ostream& os, const TMatrix& c)
 		{
 			for (size_t i = 0; i < _nRow; i++)
@@ -37,8 +36,7 @@ namespace zyh
 		}
 		friend std::istream& operator>>(std::istream& is, TMatrix& c);
 
-		std::vector<_DataType>& operator [](size_t idx){ return idx < _nRow ? mData_[idx] : mData_[_nRow - 1];}
-
+	public: // method
 		void input(_DataType data)
 		{
 			size_t idx = _mDataIdx;
@@ -57,6 +55,38 @@ namespace zyh
 			return result;
 		}
 
+	public: // operation
+		std::vector<_DataType>& operator [](size_t idx) { return idx < _nRow ? mData_[idx] : mData_[_nRow - 1]; }
+		TMatrix operator * (const TMatrix& rMat)
+		{
+			assert(nCol() == rMat.nRow());
+			TMatrix<_DataType, nRow(), rMat.nCol()> ret;
+			const TMatrix& lMat = (*this);
+			for (size_t i = 0; i < nRow(); ++i)
+				for (size_t j = 0; j < rMat.nCol(); ++j)
+				{
+					ret[i][j] = (_DataType)0;
+					for (size_t k = 0; k < nCol(); ++k)
+					{
+						ret[i][j] += lMat[i][k] * rMat[k][i];
+					}
+				}
+			return ret;
+		}
+		TMatrix operator * (const TVec<_nCol, _DataType>& rVec)
+		{
+			TVec<_nRow, _DataType> ret;
+			const TMatrix& lMat = (*this);
+			for (size_t i = 0; i < nRow(); ++i)
+			{
+				ret[i] = (_DataType)0;
+				for (size_t j = 0; j < nCol(); ++j)
+				{
+					ret[i] += lMat[i][j] * rVec[j];
+				}
+			}
+		}
+
 	protected:
 		size_t nRow() { return _nRow; }
 		size_t nCol() { return _nCol; }
@@ -70,6 +100,7 @@ namespace zyh
 		}
 
 		size_t _mDataIdx;
+		// TODO: convert to TVec<TVec<_DataType>>
 		std::vector<std::vector<_DataType>> mData_;
 
 	};

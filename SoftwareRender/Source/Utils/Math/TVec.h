@@ -4,19 +4,21 @@
 #include <initializer_list>
 #include <iostream>
 
-namespace zyh
+namespace ZYH
 {
 	template<int _Size, typename _DataType>
 	class TVec
 	{
-		static _DataType dot(TVec& v1, TVec& v2)
+		static _DataType dot(const TVec& v1, const TVec& v2)
 		{
 			assert(v1.size() == v2.size());
-			_DataType result = v1[0] * v2[0];
-			for (size_t idx = 1; idx < v1.size(); ++idx)
+			_DataType result = (_DataType)0;
+			for (size_t idx = 0; idx < v1.size(); ++idx)
 				result += v1[idx] * v2[idx];
 			return result;
 		}
+
+		static TVec<_Size, _DataType> cross(const TVec& v1, const TVec& v2);
 
 	public:
 		TVec() { mData_.resize(_Size); }
@@ -34,22 +36,25 @@ namespace zyh
 
 		_DataType& operator [](int idx) { return idx < _Size ? mData_[idx] : mData_[_Size - 1]; }
 		_DataType dot(TVec& v2) { return TVec::dot(*this, v2); }
-		size_t size() { return _Size; }
+		inline size_t size() { return _Size; }
+		inline _DataType absSqr() { return TVec::dot(*this, *this); }
+		inline _DataType abs() { return std::sqrt(absSqr()); }
+		void normalize() 
+		{
+			auto abs = this->abs();
+			for (auto& d : mData_)
+				d /= abs;
+		}
+		TVec<_Size, _DataType> getNormalized()
+		{
+			TVec<_Size, _DataType> ret(*this);
+			ret.normalize();
+			return ret;
+		}
 
 	private:
 		std::vector<_DataType> mData_;
 	};
-
-
-	template <typename _DataType>
-	using TVec2 = TVec<2, _DataType>;
-	template <typename _DataType>
-	using TVec3 = TVec<3, _DataType>;
-
-	using Vector3i = TVec3<int>;
-	using Vector3f = TVec3<float>;
-	using Vector3d = TVec3<double>;
-
 }
 
 
