@@ -13,14 +13,21 @@ namespace ZYH
 	{
 	public: // ctor & dtor
 		TMatrix() { initData(); }
-		TMatrix(std::initializer_list<_DataType> data)
+		TMatrix(const _DataType* data) 
+		{ 
+			initData();
+			_mDataIdx = 0;
+			while (_mDataIdx < _nRow * _nCol)
+				Input(data[_mDataIdx]);
+		}
+		TMatrix(const std::initializer_list<_DataType> data)
 		{
 			assert(data.size() == _nRow * _nCol);
 			initData();
 			_mDataIdx = 0;
 
 			for (auto d : data)
-				input(d);
+				Input(d);
 		}
 
 	public: // iostream
@@ -37,7 +44,7 @@ namespace ZYH
 		friend std::istream& operator>>(std::istream& is, TMatrix& c);
 
 	public: // method
-		void input(_DataType data)
+		void Input(_DataType data)
 		{
 			size_t idx = _mDataIdx;
 			assert(idx < _nRow * _nCol);
@@ -46,7 +53,7 @@ namespace ZYH
 			++_mDataIdx;
 		}
 
-		TMatrix transpose()
+		TMatrix Transpose()
 		{
 			TMatrix< _DataType, _nCol, _nRow> result;
 			for (size_t j = 0; j < _nCol; j++)
@@ -57,6 +64,7 @@ namespace ZYH
 
 	public: // operation
 		std::vector<_DataType>& operator [](size_t idx) { return idx < _nRow ? mData_[idx] : mData_[_nRow - 1]; }
+		
 		TMatrix operator * (const TMatrix& rMat)
 		{
 			assert(nCol() == rMat.nRow());

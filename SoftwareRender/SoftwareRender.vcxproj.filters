@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source\Utils">
+      <UniqueIdentifier>{3a3d03b9-a209-4d51-b971-e0b98f679b40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Utils\Math">
+      <UniqueIdentifier>{62d13335-8f5f-4094-94e8-65f9009a3cb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Utils\Geometry">
+      <UniqueIdentifier>{cf61543f-20f5-4300-b330-661b2152c164}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Utils\Color">
+      <UniqueIdentifier>{faf753ab-fa05-4d67-8de4-225b6ad42d15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Render">
+      <UniqueIdentifier>{94b74c27-e35c-4fab-8fea-7fa15edb4b11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Utils\Math\TMatrix.h">
+      <Filter>Source\Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Math\Matrix.h">
+      <Filter>Source\Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Math\TVec.h">
+      <Filter>Source\Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Renderer.h">
+      <Filter>Source\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Color\RGB.h">
+      <Filter>Source\Utils\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Geometry\Shape.h">
+      <Filter>Source\Utils\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Geometry\Geometry.h">
+      <Filter>Source\Utils\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Camera.h">
+      <Filter>Source\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Rasterize.h">
+      <Filter>Source\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Math\Vector.h">
+      <Filter>Source\Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Math\Constant.h">
+      <Filter>Source\Utils\Math</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\Renderer.cpp">
+      <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\Rasterize.cpp">
+      <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utils\Math\Matrix.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utils\Camera.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
