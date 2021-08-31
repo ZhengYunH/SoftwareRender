@@ -26,10 +26,14 @@ namespace ZYH
 	void Renderer::Update(HWND hWnd)
 	{
 		ClearBuffer();
-
+		UpdateCamera();
 		HDC hDC = GetDC(hWnd);
 		BitBlt(hDC, 0, 0, mWidth_, mHeight_, mTempDC_, 0, 0, SRCCOPY);
 		ReleaseDC(hWnd, hDC);
+	}
+	void Renderer::UpdateCamera()
+	{
+		mCamera_.LookAt(Vector3(), Vector3({ 0, 0, 1 }), Vector3({ 0,1,0 }));
 	}
 	void Renderer::ClearBuffer()
 	{

@@ -46,6 +46,7 @@ namespace ZYH
 		const _DataType& operator [](int idx) const { return idx < _Size ? mData_[idx] : mData_[_Size - 1]; }
 		TVec cross(const TVec& rV) { return cross(*this, rV); }
 		_DataType dot(TVec& v2) { return TVec::dot(*this, v2); }
+		_DataType dot(const TVec& v2) const { return TVec::dot(*this, v2); }
 
 		inline size_t size() { return _Size; }
 		inline size_t size() const { return _Size; }

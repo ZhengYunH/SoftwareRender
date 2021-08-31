@@ -74,11 +74,11 @@
     <ClCompile Include="Source\Render\Rasterize.cpp">
       <Filter>Source\Render</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Utils\Math\Matrix.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Utils\Camera.cpp">
-      <Filter>Main</Filter>
+      <Filter>Source\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utils\Math\Matrix.cpp">
+      <Filter>Source\Utils\Math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -12,6 +12,7 @@ namespace ZYH
 	public:
 		Renderer(int w, int h, HWND hWnd);
 		void Update(HWND hWnd);
+		void UpdateCamera();
 		void ClearBuffer();
 		void ShutDown();
 		void DrawPixel(uint32_t x, uint32_t y, ZRGB color);

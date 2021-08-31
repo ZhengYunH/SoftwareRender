@@ -35,6 +35,8 @@ namespace ZYH
 	private:
 		// update mWorldToView_ & mViewToProj_
 		void _UpdateMatrix();
+		void _UpdateWorldToView();
+		void _UpdateViewToProj();
 
 	private:
 		Matrix mTransform_;

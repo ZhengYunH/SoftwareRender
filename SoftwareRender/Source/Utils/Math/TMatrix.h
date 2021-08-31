@@ -64,7 +64,8 @@ namespace ZYH
 
 	public: // operation
 		std::vector<_DataType>& operator [](size_t idx) { return idx < _nRow ? mData_[idx] : mData_[_nRow - 1]; }
-		
+		const std::vector<_DataType>& operator [](size_t idx) const { return idx < _nRow ? mData_[idx] : mData_[_nRow - 1]; }
+
 		TMatrix operator * (const TMatrix& rMat)
 		{
 			assert(nCol() == rMat.nRow());
@@ -99,7 +100,7 @@ namespace ZYH
 		size_t nRow() { return _nRow; }
 		size_t nCol() { return _nCol; }
 
-	private:
+	protected:
 		void initData()
 		{
 			mData_.resize(_nRow);

@@ -118,4 +118,20 @@ namespace ZYH
 		delete RMat;
 		delete[] data;
 	}
+	Vector3 Matrix::getAxis(AXIS axis)
+	{
+		const auto& mat = (*this);
+		if (axis == AXIS::X)
+		{
+			return Vector3({ mat[0][0], mat[0][1], mat[0][2] });
+		}
+		else if (axis == AXIS::Y)
+		{
+			return Vector3({ mat[1][0], mat[1][1], mat[1][2] });
+		}
+		else
+		{
+			return Vector3({ mat[2][0], mat[2][1], mat[2][2] });
+		}
+	}
 }

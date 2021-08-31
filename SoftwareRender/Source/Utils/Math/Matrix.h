@@ -33,6 +33,7 @@ namespace ZYH
 	public:
 		Matrix() {}
 		Matrix(const float* data) : TMatrix<float, 4, 4>(data) {}
+		Matrix(TMatrix<float, 4, 4> mat) : TMatrix(mat){}
 
 	public:
 		void PreMultiply(Matrix& rMat)
@@ -53,6 +54,8 @@ namespace ZYH
 		void Scale(Vector3 scale);
 		void Scale(Vector3 n, float scale);
 	
+		Vector3 getAxis(AXIS axis);
+
 	private:
 		Matrix3x3 mR_;
 		Vector3 mT_;
