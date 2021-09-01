@@ -42,8 +42,8 @@ namespace ZYH
 			return os;
 		}
 
-		_DataType& operator [](int idx) { return idx < _Size ? mData_[idx] : mData_[_Size - 1]; }
-		const _DataType& operator [](int idx) const { return idx < _Size ? mData_[idx] : mData_[_Size - 1]; }
+		_DataType& operator [](size_t idx) { return idx < _Size ? mData_[idx] : mData_[_Size - 1]; }
+		const _DataType& operator [](size_t idx) const { return idx < _Size ? mData_[idx] : mData_[_Size - 1]; }
 		TVec cross(const TVec& rV) { return cross(*this, rV); }
 		_DataType dot(TVec& v2) { return TVec::dot(*this, v2); }
 		_DataType dot(const TVec& v2) const { return TVec::dot(*this, v2); }

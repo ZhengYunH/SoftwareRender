@@ -27,6 +27,8 @@ namespace ZYH
 	{
 		ClearBuffer();
 		UpdateCamera();
+		UpdateGeometry();
+
 		HDC hDC = GetDC(hWnd);
 		BitBlt(hDC, 0, 0, mWidth_, mHeight_, mTempDC_, 0, 0, SRCCOPY);
 		ReleaseDC(hWnd, hDC);
@@ -34,6 +36,12 @@ namespace ZYH
 	void Renderer::UpdateCamera()
 	{
 		mCamera_.LookAt(Vector3(), Vector3({ 0, 0, 1 }), Vector3({ 0,1,0 }));
+	}
+	void Renderer::UpdateGeometry()
+	{
+		DrawLine(Vector2ui({ 10, 10 }), Vector2ui({ 300, 300 }), ZRGB(255, 0, 0));
+		DrawLine(Vector2ui({ 500, 10 }), Vector2ui({ 45, 300 }), ZRGB(255, 0, 0));
+		DrawLine(Vector2ui({ 0, 555 }), Vector2ui({ 555, 300 }), ZRGB(255, 0, 0));
 	}
 	void Renderer::ClearBuffer()
 	{
@@ -66,11 +74,19 @@ namespace ZYH
 			mTempBm_ = nullptr;
 		}
 	}
-	void Renderer::DrawPixel(uint32_t x, uint32_t y, ZRGB color)
+	void Renderer::DrawPixel(Vector2ui point, const ZRGB& color)
+	{
+		DrawPixel(point.X(), point.Y(), color);
+	}
+	void Renderer::DrawPixel(uint32_t x, uint32_t y, const ZRGB& color)
 	{
 		if (x >= mWidth_ || y >= mHeight_)
 			return;
 		mFrameBuffer_[y * mWidth_ + x] = color;
+	}
+	void Renderer::DrawLine(Vector2ui p1, Vector2ui p2, const ZRGB& color)
+	{
+		rasterizer.DrawLine(p1, p2, color, this);
 	}
 	void Renderer::_InitCamera()
 	{

@@ -1,5 +1,7 @@
 #pragma once
+#include <algorithm>
 #include <stdint.h>
+#include "../Utils/Math/Vector.h"
 
 namespace ZYH
 {
@@ -8,6 +10,6 @@ namespace ZYH
 	class Rasterize
 	{
 	public:
-		void DrawLine(uint32_t x1, uint32_t y1, uint32_t x2, uint32_t y2, uint32_t color, Renderer* render);
+		void DrawLine(const Vector2ui& p1, const Vector2ui& p2, uint32_t color, Renderer* render);
 	};
 }
