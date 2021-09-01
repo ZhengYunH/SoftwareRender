@@ -14,7 +14,7 @@
 // handle message from operation system
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
-
+static ZYH::Renderer *render;
 // the main function
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -72,7 +72,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
 
-    ZYH::Renderer render(800, 600, hWnd);
+    render = new ZYH::Renderer(800, 600, hWnd);
 
     MSG msg = {};
     while (msg.message != WM_QUIT)
@@ -84,10 +84,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
         }
         else
         {
-            render.Update(hWnd);
+            render->Update(hWnd);
         }
     }
-    render.ShutDown();
+    render->ShutDown();
+    delete render;
     return (int)msg.wParam;
 }
 
@@ -96,7 +97,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     PAINTSTRUCT ps;
     HDC hdc;
     TCHAR greeting[] = _T("Hello, World!");
-
+    render->HandleEvent(message);
     switch (message)
     {
     case WM_PAINT:

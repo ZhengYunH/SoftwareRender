@@ -1,5 +1,6 @@
 #include "Renderer.h"
 #include "../Utils/Math/Constant.h"
+#include "../Utils/Geometry/Geometry.h"
 
 namespace ZYH
 {
@@ -26,6 +27,7 @@ namespace ZYH
 	void Renderer::Update(HWND hWnd)
 	{
 		ClearBuffer();
+		CollectPrimitives();
 		UpdateCamera();
 		UpdateGeometry();
 
@@ -35,13 +37,22 @@ namespace ZYH
 	}
 	void Renderer::UpdateCamera()
 	{
-		mCamera_.LookAt(Vector3(), Vector3({ 0, 0, 1 }), Vector3({ 0,1,0 }));
+		
 	}
 	void Renderer::UpdateGeometry()
 	{
-		DrawLine(Vector2ui({ 10, 10 }), Vector2ui({ 300, 300 }), ZRGB(255, 0, 0));
-		DrawLine(Vector2ui({ 500, 10 }), Vector2ui({ 45, 300 }), ZRGB(255, 0, 0));
-		DrawLine(Vector2ui({ 0, 555 }), Vector2ui({ 555, 300 }), ZRGB(255, 0, 0));
+		for (auto& ro : mRenderObjects_)
+		{
+			ro->Draw(this, RENDER_MODE::WIRE_FRAME);
+			delete ro;
+		}
+		mRenderObjects_.clear();
+	}
+	void Renderer::CollectPrimitives()
+	{
+		std::vector<Vector3> vertices{ Vector3(-1,0,2), Vector3(0,1,2), Vector3(1,0,2) };
+		std::vector<uint32_t> indexs {0, 1, 2};
+		new PrimitivesRenderObject(this, vertices, indexs);
 	}
 	void Renderer::ClearBuffer()
 	{
@@ -82,19 +93,35 @@ namespace ZYH
 	{
 		if (x >= mWidth_ || y >= mHeight_)
 			return;
-		mFrameBuffer_[y * mWidth_ + x] = color;
+		mFrameBuffer_[(mHeight_ - y) * mWidth_ + x] = color;
 	}
 	void Renderer::DrawLine(Vector2ui p1, Vector2ui p2, const ZRGB& color)
 	{
-		rasterizer.DrawLine(p1, p2, color, this);
+		mRasterizer_.DrawLine(p1, p2, color, this);
+	}
+	Vector2ui Renderer::GetScreenPoint(Vector3& p)
+	{
+		auto x = uint32_t((p.X() + 1.f) * mWidth_ / 2.0f);
+		auto y = uint32_t((p.Y() + 1.f) * mHeight_ / 2.0f);
+		return Vector2ui(x, y);
+	}
+	void Renderer::HandleEvent(UINT message)
+	{
+		switch (message)
+		{
+		case WM_LBUTTONDOWN:
+			mCamera_.Translation(mCamera_.Translation() + Vector3(0.5, 0, 0));
+			break;
+		}
 	}
 	void Renderer::_InitCamera()
 	{
 		mCamera_.SetPerspectiveForLH(
 			PI * 0.25f,
 			mWidth_ / (float)mHeight_,
-			0.5f,
+			0.1f,
 			5000.f
 		);
+		mCamera_.LookAt(Vector3(0, 0, 0), Vector3({ 0, 0, 1 }), Vector3({ 0, 1, 0 }));
 	}
 }

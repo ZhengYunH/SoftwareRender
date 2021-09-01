@@ -134,4 +134,16 @@ namespace ZYH
 			return Vector3({ mat[2][0], mat[2][1], mat[2][2] });
 		}
 	}
+	Vector3 Matrix::operator*(const Vector3& point)
+	{
+		auto vec4 = operator*(Vector4(point, 1.f));
+		if(vec4.W() != 0)
+			return Vector3(vec4.X()/ vec4.W(), vec4.Y()/ vec4.W(), vec4.Z()/ vec4.W());
+		else
+			return Vector3(vec4.X() , vec4.Y(), vec4.Z());
+	}
+	Vector4 Matrix::operator*(const Vector4& point)
+	{
+		return TMatrix<float, 4, 4>::operator*(point);
+	}
 }

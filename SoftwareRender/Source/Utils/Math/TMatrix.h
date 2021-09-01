@@ -82,7 +82,7 @@ namespace ZYH
 				}
 			return ret;
 		}
-		TMatrix operator * (const TVec<_nCol, _DataType>& rVec)
+		TVec<_nCol, _DataType> operator * (const TVec<_nCol, _DataType>& rVec)
 		{
 			TVec<_nRow, _DataType> ret;
 			const TMatrix& lMat = (*this);
@@ -94,6 +94,7 @@ namespace ZYH
 					ret[i] += lMat[i][j] * rVec[j];
 				}
 			}
+			return ret;
 		}
 
 	protected:

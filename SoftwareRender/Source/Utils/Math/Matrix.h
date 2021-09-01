@@ -26,7 +26,7 @@ namespace ZYH
 				for (size_t j = 0; j < rMat.nCol(); ++j)
 					for (size_t k = 0; k < lMat.nCol(); ++k)
 					{
-						lMat[i][j] += lMat[i][k] * rMat[k][i];
+						lMat[i][j] += lMat[i][k] * rMat[k][j];
 					}
 		}
 
@@ -56,9 +56,9 @@ namespace ZYH
 	
 		Vector3 getAxis(AXIS axis);
 
-	private:
-		Matrix3x3 mR_;
-		Vector3 mT_;
+	public:
+		Vector3 operator *(const Vector3& point);
+		Vector4 operator *(const Vector4& point);
 	};
 
 }

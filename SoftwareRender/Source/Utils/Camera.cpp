@@ -34,14 +34,12 @@ namespace ZYH
 	void Camera::_UpdateViewToProj()
 	{
 		float f = 1.0f / tanf(mFieldOfView_ * 0.5f);
-
-
 		mViewToProj_ = Matrix(
 			{
 				f / mAspect_, 0.f, 0.f, 0.f,
 				0.f, f, 0.f, 0.f,
-				0.f, 0.f, mFar_ / (mFar_ - mNear_), 1.0f,
-				0.f, 0.f, -mNear_ * mFar_ / (mFar_ - mNear_), 0.f
+				0.f, 0.f, (mNear_ + mFar_) / (mFar_ - mNear_), -mNear_ * mFar_ / (mFar_ - mNear_),
+				0.f, 0.f, 1.0f, 0.f
 			});
 	}
 }

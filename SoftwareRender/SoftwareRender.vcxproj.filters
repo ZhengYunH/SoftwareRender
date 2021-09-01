@@ -80,5 +80,8 @@
     <ClCompile Include="Source\Utils\Math\Matrix.cpp">
       <Filter>Source\Utils\Math</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Utils\Geometry\Geometry.cpp">
+      <Filter>Source\Utils\Geometry</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

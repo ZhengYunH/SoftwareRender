@@ -12,15 +12,15 @@ namespace ZYH
 		{
 			mFieldOfView_ = _fov; mAspect_ = _aspect; mNear_ = _near; mFar_ = _far;
 		}
-		const Matrix& Transform() 
+		Matrix& Transform()
 		{
 			return mTransform_;
 		}
-		const Matrix& WorldToProj()
+		Matrix& WorldToProj()
 		{
 			return mWorldToProj_;
 		}
-		const Vector3 Translation() 
+		Vector3 Translation() 
 		{ 
 			return Vector3({ mTransform_[3][0], mTransform_[3][1], mTransform_[3][2] });
 		}
@@ -29,6 +29,7 @@ namespace ZYH
 			mTransform_[3][0] = translation[0];
 			mTransform_[3][1] = translation[1];
 			mTransform_[3][2] = translation[2];
+			_UpdateMatrix();
 		}
 		void LookAt(Vector3 trans, Vector3 dir, Vector3 Up);
 
@@ -42,7 +43,7 @@ namespace ZYH
 		Matrix mTransform_;
 		bool mIsDirty_{ true };
 		
-		float mFieldOfView_{45.f};
+		float mFieldOfView_{1.f};
 
 		float mAspect_{ 1.0f };
 
@@ -52,5 +53,6 @@ namespace ZYH
 		Matrix mWorldToView_;
 		Matrix mViewToProj_;
 		Matrix mWorldToProj_;
+		Matrix mProjToNDC_;
 	};
 }
