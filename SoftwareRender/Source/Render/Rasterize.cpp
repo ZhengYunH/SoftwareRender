@@ -3,7 +3,7 @@
 
 namespace ZYH
 {
-	void Rasterize::DrawLine(const Vector2ui& p1, const Vector2ui& p2, uint32_t color, Renderer* render)
+	void Rasterize::DrawLine(const Vector2u& p1, const Vector2u& p2, uint32_t color, Renderer* render)
 	{
 		if (p1.X() == p2.X() && p1.Y() == p2.Y())
 			render->DrawPixel(p1, color);
@@ -23,8 +23,8 @@ namespace ZYH
 			uint32_t dy = std::abs(int(p1.Y()) - int(p2.Y()));
 			if (dx > dy)
 			{
-				Vector2ui pStart = p1;
-				Vector2ui pEnd = p2;
+				Vector2u pStart = p1;
+				Vector2u pEnd = p2;
 				if (pStart.X() > pEnd.X())
 					std::swap(pStart, pEnd);
 				for (uint32_t x = pStart.X(), y = pStart.Y(); x < pEnd.X(); ++x)
@@ -41,8 +41,8 @@ namespace ZYH
 			}
 			else
 			{
-				Vector2ui pStart = p1;
-				Vector2ui pEnd = p2;
+				Vector2u pStart = p1;
+				Vector2u pEnd = p2;
 				if (pStart.Y() > pEnd.Y())
 					std::swap(pStart, pEnd);
 				for (uint32_t y = pStart.Y(), x = pStart.X(); y < pEnd.Y(); ++y)

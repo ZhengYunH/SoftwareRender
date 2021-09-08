@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Render\Culler.h" />
     <ClInclude Include="Source\Render\Rasterize.h" />
     <ClInclude Include="Source\Render\Renderer.h" />
     <ClInclude Include="Source\Utils\Camera.h" />

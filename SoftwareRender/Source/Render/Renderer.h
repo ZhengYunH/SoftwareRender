@@ -20,14 +20,14 @@ namespace ZYH
 
 		void ClearBuffer();
 		void ShutDown();
-		void DrawPixel(Vector2ui point, const ZRGB& color);
+		void DrawPixel(Vector2u point, const ZRGB& color);
 		void DrawPixel(uint32_t x, uint32_t y, const ZRGB& color);
-		void DrawLine(Vector2ui p1, Vector2ui p2, const ZRGB& color);
+		void DrawLine(Vector2u p1, Vector2u p2, const ZRGB& color);
 
 		Camera& GetCamera() { return mCamera_; }
 		void AddRenderObject(RenderObject* renderObject) { mRenderObjects_.push_back(renderObject); }
 
-		Vector2ui GetScreenPoint(Vector3& p);
+		Vector2u GetScreenPoint(Vector3& p);
 
 		uint32_t GetHeight() { return mHeight_; }
 		uint32_t GetWidth() { return mWidth_; }
@@ -50,6 +50,9 @@ namespace ZYH
 
 		// TODO: Double Buffering
 
+
+	private:
+		int	mMouseState_{ 0 };
 
 	private:
 		void _InitCamera();

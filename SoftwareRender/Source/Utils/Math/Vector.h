@@ -36,6 +36,11 @@ namespace ZYH
 			auto& lVec = *this;
 			return TVec3< _DataType>(lVec.X() + rVec.X(), lVec.Y() + rVec.Y(), lVec.Z() + rVec.Z());
 		}
+		TVec3< _DataType> operator *(const float scaler)
+		{
+			auto& lVec = *this;
+			return  TVec3< _DataType>(lVec.X() * scaler, lVec.Y() * scaler, lVec.Z() * scaler);
+		}
 	};
 
 	template <typename _DataType>
@@ -56,7 +61,7 @@ namespace ZYH
 	
 	};
 
-	using Vector2ui = TVec2<uint32_t>;
+	using Vector2u = TVec2<uint32_t>;
 	using Vector2i = TVec2<int>;
 	using Vector2 = TVec2<float>;
 	using Vector2d = TVec2<double>;

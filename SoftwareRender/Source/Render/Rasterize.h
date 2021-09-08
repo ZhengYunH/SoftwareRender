@@ -10,6 +10,6 @@ namespace ZYH
 	class Rasterize
 	{
 	public:
-		void DrawLine(const Vector2ui& p1, const Vector2ui& p2, uint32_t color, Renderer* render);
+		void DrawLine(const Vector2u& p1, const Vector2u& p2, uint32_t color, Renderer* render);
 	};
 }

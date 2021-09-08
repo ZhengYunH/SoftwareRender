@@ -63,6 +63,9 @@
     <ClInclude Include="Source\Utils\Math\Constant.h">
       <Filter>Source\Utils\Math</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Render\Culler.h">
+      <Filter>Source\Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">

@@ -1,5 +1,6 @@
 #include "Geometry.h"
 #include "../../Render/Renderer.h"
+#include "../../Render/Culler.h"
 
 namespace ZYH
 {
@@ -24,10 +25,15 @@ namespace ZYH
 				auto vertex1 = mat * mVertices_[idx];
 				auto vertex2 = mat * mVertices_[(idx + 1)];
 				auto vertex3 = mat * mVertices_[(idx + 2)];
-
-				render->DrawLine(render->GetScreenPoint(vertex1), render->GetScreenPoint(vertex2), color);
-				render->DrawLine(render->GetScreenPoint(vertex2), render->GetScreenPoint(vertex3), color);
-				render->DrawLine(render->GetScreenPoint(vertex3), render->GetScreenPoint(vertex1), color);
+				
+				ViewPortCulling::VectexList vecList = { vertex1 , vertex2, vertex3 };
+				ViewPortCulling::SutherlandHodgman(vecList);
+				for (size_t vecIdx = 0; vecIdx < vecList.size(); ++vecIdx)
+				{
+					auto& vertex1 = vecList[vecIdx];
+					auto& vertex2 = vecList[(vecIdx + 1) % vecList.size()];
+					render->DrawLine(render->GetScreenPoint(vertex1), render->GetScreenPoint(vertex2), color);
+				}
 			}
 		}
 		else

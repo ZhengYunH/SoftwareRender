@@ -85,7 +85,7 @@ namespace ZYH
 			mTempBm_ = nullptr;
 		}
 	}
-	void Renderer::DrawPixel(Vector2ui point, const ZRGB& color)
+	void Renderer::DrawPixel(Vector2u point, const ZRGB& color)
 	{
 		DrawPixel(point.X(), point.Y(), color);
 	}
@@ -95,23 +95,35 @@ namespace ZYH
 			return;
 		mFrameBuffer_[(mHeight_ - y) * mWidth_ + x] = color;
 	}
-	void Renderer::DrawLine(Vector2ui p1, Vector2ui p2, const ZRGB& color)
+	void Renderer::DrawLine(Vector2u p1, Vector2u p2, const ZRGB& color)
 	{
 		mRasterizer_.DrawLine(p1, p2, color, this);
 	}
-	Vector2ui Renderer::GetScreenPoint(Vector3& p)
+	Vector2u Renderer::GetScreenPoint(Vector3& p)
 	{
 		auto x = uint32_t((p.X() + 1.f) * mWidth_ / 2.0f);
 		auto y = uint32_t((p.Y() + 1.f) * mHeight_ / 2.0f);
-		return Vector2ui(x, y);
+		return Vector2u(x, y);
 	}
 	void Renderer::HandleEvent(UINT message)
 	{
 		switch (message)
 		{
 		case WM_LBUTTONDOWN:
-			mCamera_.Translation(mCamera_.Translation() + Vector3(0.5, 0, 0));
+			mMouseState_ = 1;
 			break;
+		case WM_RBUTTONDOWN:
+			mMouseState_ = 2;
+			break;
+		case WM_LBUTTONUP:
+		case WM_RBUTTONUP:
+			mMouseState_ = 0;
+			break;
+		case WM_MOUSEMOVE:
+			if (mMouseState_ == 1)
+				mCamera_.Translation(mCamera_.Translation() + Vector3(0.1f, 0, 0));
+			if (mMouseState_ == 2)
+				mCamera_.Translation(mCamera_.Translation() + Vector3(-0.1f, 0, 0));
 		}
 	}
 	void Renderer::_InitCamera()
