@@ -97,7 +97,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     PAINTSTRUCT ps;
     HDC hdc;
     TCHAR greeting[] = _T("Hello, World!");
-    render->HandleEvent(message);
+    render->HandleEvent(message, wParam, lParam);
     switch (message)
     {
     case WM_PAINT:

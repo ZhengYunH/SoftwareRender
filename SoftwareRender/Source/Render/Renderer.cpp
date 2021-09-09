@@ -91,7 +91,7 @@ namespace ZYH
 	}
 	void Renderer::DrawPixel(uint32_t x, uint32_t y, const ZRGB& color)
 	{
-		if (x >= mWidth_ || y >= mHeight_)
+		if (x <= 0 || x >= mWidth_ || y <= 0 || y >= mHeight_)
 			return;
 		mFrameBuffer_[(mHeight_ - y) * mWidth_ + x] = color;
 	}
@@ -105,15 +105,22 @@ namespace ZYH
 		auto y = uint32_t((p.Y() + 1.f) * mHeight_ / 2.0f);
 		return Vector2u(x, y);
 	}
-	void Renderer::HandleEvent(UINT message)
+	void Renderer::HandleEvent(UINT message, WPARAM wParam, LPARAM lParam)
 	{
+		auto x = LOWORD(lParam);
+		auto y = HIWORD(lParam); 
+		bool pushShift = wParam & MK_SHIFT;
+		bool pushCtrl = wParam & MK_CONTROL;
 		switch (message)
 		{
 		case WM_LBUTTONDOWN:
 			mMouseState_ = 1;
+			mMousePos = Vector2i(x, y);
+			mCamTrans = mCamera_.Translation();
 			break;
 		case WM_RBUTTONDOWN:
 			mMouseState_ = 2;
+			mMousePos = Vector2i(x, y);
 			break;
 		case WM_LBUTTONUP:
 		case WM_RBUTTONUP:
@@ -121,9 +128,13 @@ namespace ZYH
 			break;
 		case WM_MOUSEMOVE:
 			if (mMouseState_ == 1)
-				mCamera_.Translation(mCamera_.Translation() + Vector3(0.1f, 0, 0));
+			{
+				mCamera_.Translation(mCamTrans + Vector3(0.05f * (mMousePos.X() - x), 0.05f *(mMousePos.Y() - y), 0.f));
+			}
 			if (mMouseState_ == 2)
-				mCamera_.Translation(mCamera_.Translation() + Vector3(-0.1f, 0, 0));
+			{
+				// Rotation
+			}
 		}
 	}
 	void Renderer::_InitCamera()

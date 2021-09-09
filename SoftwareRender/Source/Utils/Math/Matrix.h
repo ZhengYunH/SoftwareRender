@@ -20,14 +20,16 @@ namespace ZYH
 	class Matrix: public TMatrix<float, 4, 4>
 	{
 	public:
-		static void Multiply(Matrix& lMat, Matrix& rMat)
+		static Matrix Multiply(Matrix& lMat, Matrix& rMat)
 		{
+			Matrix ret;
 			for (size_t i = 0; i < lMat.nRow(); ++i)
-				for (size_t j = 0; j < rMat.nCol(); ++j)
-					for (size_t k = 0; k < lMat.nCol(); ++k)
+				for (size_t j = 0; j < lMat.nCol(); ++j)
+					for (size_t k = 0; k < rMat.nRow(); ++k)
 					{
-						lMat[i][j] += lMat[i][k] * rMat[k][j];
+						ret[i][j] += lMat[i][k] * rMat[k][j];
 					}
+			return ret;
 		}
 
 	public:
@@ -38,13 +40,12 @@ namespace ZYH
 	public:
 		void PreMultiply(Matrix& rMat)
 		{
-			Multiply(rMat, *this);
-			*this = rMat;
+			*this = Multiply(rMat, *this);
 		}
 
 		void PostMultiply(Matrix& rMat)
 		{
-			Multiply(*this, rMat);
+			*this = Multiply(*this, rMat);
 		}
 
 		void Rotate(Vector3 n, float theta);

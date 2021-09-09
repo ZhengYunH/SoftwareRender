@@ -34,7 +34,7 @@ namespace ZYH
 
 	public:
 		// Handle Event
-		void HandleEvent(UINT message);
+		void HandleEvent(UINT message, WPARAM wParam, LPARAM lParam);
 
 	public:
 		uint32_t mWidth_;
@@ -53,6 +53,8 @@ namespace ZYH
 
 	private:
 		int	mMouseState_{ 0 };
+		Vector2i mMousePos{ 0,0 };
+		Vector3	mCamTrans;
 
 	private:
 		void _InitCamera();

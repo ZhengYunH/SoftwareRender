@@ -15,10 +15,10 @@ namespace ZYH
 	}
 	void Camera::_UpdateMatrix()
 	{
-		_UpdateWorldToView();
+ 		_UpdateWorldToView();
 		_UpdateViewToProj();
 		mWorldToProj_ = mWorldToView_;
-		mWorldToProj_.PostMultiply(mViewToProj_);
+		mWorldToProj_.PreMultiply(mViewToProj_);
 	}
 	void Camera::_UpdateWorldToView()
 	{
@@ -38,7 +38,7 @@ namespace ZYH
 			{
 				f / mAspect_, 0.f, 0.f, 0.f,
 				0.f, f, 0.f, 0.f,
-				0.f, 0.f, (mNear_ + mFar_) / (mFar_ - mNear_), -mNear_ * mFar_ / (mFar_ - mNear_),
+				0.f, 0.f, (mNear_ + mFar_) / (mFar_ - mNear_),  -mNear_ * mFar_ / (mFar_ - mNear_),
 				0.f, 0.f, 1.0f, 0.f
 			});
 	}

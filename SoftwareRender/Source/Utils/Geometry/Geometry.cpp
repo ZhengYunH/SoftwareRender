@@ -25,6 +25,9 @@ namespace ZYH
 				auto vertex1 = mat * mVertices_[idx];
 				auto vertex2 = mat * mVertices_[(idx + 1)];
 				auto vertex3 = mat * mVertices_[(idx + 2)];
+				vertex1 = Vector3(vertex1.X() / vertex1.Z(), vertex1.Y() / vertex1.Z(), 1.f);
+				vertex2 = Vector3(vertex2.X() / vertex2.Z(), vertex2.Y() / vertex2.Z(), 1.f);
+				vertex3 = Vector3(vertex3.X() / vertex3.Z(), vertex3.Y() / vertex3.Z(), 1.f);
 				
 				ViewPortCulling::VectexList vecList = { vertex1 , vertex2, vertex3 };
 				ViewPortCulling::SutherlandHodgman(vecList);
